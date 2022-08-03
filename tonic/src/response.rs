@@ -141,4 +141,15 @@ mod tests {
         let http_response = r.into_http();
         assert!(http_response.headers().is_empty());
     }
+
+    #[test]
+    fn can_add_headers() {
+        let mut r = Response::new(1);
+
+        r.metadata_mut()
+            .insert("Authorization", MetadataValue::from_static("any_value"));
+
+        let http_response = r.into_http();
+        assert!(!http_response.headers().is_empty());
+    }
 }
